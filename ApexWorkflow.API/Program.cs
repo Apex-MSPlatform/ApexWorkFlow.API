@@ -1,4 +1,7 @@
 using Application;
+using Infrastructure.Extensions;
+using Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 
 
@@ -7,8 +10,11 @@ using Application;
 var builder = WebApplication.CreateBuilder(args);
 
 
+var config = builder.Configuration;
+
 builder.Services
-    .AddApplication();
+    .AddApplication()
+    .AddInfrastructure(config);
 
 // Add services to the container.
 
@@ -18,6 +24,12 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+//Automatically migrate the database
+using var scope = app.Services.CreateScope();
+var services = scope.ServiceProvider;
+var context = services.GetRequiredService<WorkflowDbContext>();
+context.Database.Migrate();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

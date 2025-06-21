@@ -12,6 +12,6 @@ namespace Domain.Entities
         public bool IsActive { get; set; } = true;
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-        public List<WorkflowTemplateStep> Steps { get; set; } = new();
+        public List<WorkflowTemplateStep> Steps { get; set; } = [];
     }
 }
