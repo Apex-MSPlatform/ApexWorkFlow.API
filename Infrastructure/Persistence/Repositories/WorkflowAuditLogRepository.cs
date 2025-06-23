@@ -1,12 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Domain.Abstractions;
+using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Persistence.Repositories
 {
-    internal class WorkflowAuditLogRepository
+    public class WorkflowAuditLogRepository : GenericRepository<WorkflowAuditLog>, IWorkflowAuditLogRepository
     {
+        public WorkflowAuditLogRepository(WorkflowDbContext context) : base(context) { }
+
+        public async Task<List<WorkflowAuditLog>> GetLogsByStepIdAsync(Guid stepId)
+        {
+            return await _context.WorkflowAuditLog
+                .Where(x => x.StepId == stepId)
+                .OrderByDescending(x => x.Timestamp)
+                .ToListAsync();
+        }
     }
 }

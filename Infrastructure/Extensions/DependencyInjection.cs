@@ -14,9 +14,16 @@ namespace Infrastructure.Extensions
             services.AddDbContext<WorkflowDbContext>(options =>
                 options.UseSqlServer(config.GetConnectionString("DefaultConnection")));
 
+            services.Scan(
+                selector => selector
+                .FromAssemblies(
+                    Application.AssemblyReference.Assemply,
+                    AssemblyReference.Assemply)
+                .AddClasses(false)
+                .AsImplementedInterfaces()
+                .WithScopedLifetime()
+            );
 
-
-            services.AddScoped<IUnitOfWork, WorkflowUnitOfWork>();
 
             // Add Security HTTP Client if needed
 

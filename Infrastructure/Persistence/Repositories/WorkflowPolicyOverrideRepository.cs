@@ -1,12 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Domain.Abstractions;
+using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Persistence.Repositories
 {
-    internal class WorkflowPolicyOverrideRepository
+    public class WorkflowPolicyOverrideRepository : GenericRepository<WorkflowPolicyOverride>, IWorkflowPolicyOverrideRepository
     {
+        public WorkflowPolicyOverrideRepository(WorkflowDbContext context) : base(context) { }
+
+        public async Task<List<WorkflowPolicyOverride>> GetOverridesForContextAsync(
+            string referenceType, Guid? userId, string? role, string? department, string? office)
+        {
+            return await _context.WorkflowPolicyOverride
+                .Where(p => p.ReferenceType == referenceType &&
+                            (p.UserId == null || p.UserId == userId) &&
+                            (p.Role == null || p.Role == role) &&
+                            (p.Department == null || p.Department == department) &&
+                            (p.Office == null || p.Office == office))
+                .OrderByDescending(p => p.Priority)
+                .ToListAsync();
+        }
     }
 }

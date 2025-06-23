@@ -1,12 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Domain.Abstractions;
+using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Persistence.Repositories
 {
-    internal class WorkflowStepInstanceRepository
+    public class WorkflowStepInstanceRepository : GenericRepository<WorkflowStepInstance>, IWorkflowStepInstanceRepository
     {
+        public WorkflowStepInstanceRepository(WorkflowDbContext context) : base(context) { }
+
+        public async Task<List<WorkflowStepInstance>> GetByWorkflowInstanceIdAsync(Guid workflowInstanceId)
+        {
+            return await _context.WorkflowStepInstance
+                .Where(s => s.InstanceId == workflowInstanceId)
+                .OrderBy(s => s.StepOrder)
+                .ToListAsync();
+        }
     }
 }

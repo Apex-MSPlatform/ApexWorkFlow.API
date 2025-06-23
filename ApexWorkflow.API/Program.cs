@@ -16,6 +16,7 @@ builder.Services
     .AddApplication()
     .AddInfrastructure(config);
 
+
 // Add services to the container.
 
 builder.Services.AddControllers();
