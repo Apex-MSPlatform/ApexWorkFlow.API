@@ -4,5 +4,8 @@ using Domain.primitives;
 
 namespace Domain.Abstractions
 {
-    public interface IWorkflowTemplateStepRepository : IRepository<WorkflowTemplateStep> { }
+    public interface IWorkflowTemplateStepRepository : IRepository<WorkflowTemplateStep> 
+    {
+        Task<List<WorkflowTemplateStep>> GetStepsByTemplateIdAsync(Guid templateId);
+    }
 }

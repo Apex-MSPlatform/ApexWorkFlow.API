@@ -14,7 +14,7 @@ namespace Domain.primitives
 
         public Task<T> UpdateAsync(T t);
 
-        public Task<string> DeleteAsync(Guid id);
+        public Task<bool> DeleteAsync(Guid id);
 
         public Task<bool> IsExistsAsync(Guid id);
     }

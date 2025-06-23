@@ -4,5 +4,8 @@ using Domain.primitives;
 
 namespace Domain.Abstractions
 {
-    public interface IWorkflowAuditLogRepository : IRepository<WorkflowAuditLog> { }
+    public interface IWorkflowAuditLogRepository : IRepository<WorkflowAuditLog>
+    {
+        Task<List<WorkflowAuditLog>> GetLogsByStepIdAsync(Guid stepId);
+    }
 }
