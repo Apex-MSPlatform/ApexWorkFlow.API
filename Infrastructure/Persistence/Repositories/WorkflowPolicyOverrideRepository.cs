@@ -1,10 +1,11 @@
 ﻿using Domain.Abstractions;
 using Domain.Entities;
+using Infrastructure.Persistence.Common.GenericRepository;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Persistence.Repositories
 {
-    public class WorkflowPolicyOverrideRepository : GenericRepository<WorkflowPolicyOverride>, IWorkflowPolicyOverrideRepository
+    public class WorkflowPolicyOverrideRepository : ApexGenericRepository<WorkflowPolicyOverride>, IWorkflowPolicyOverrideRepository
     {
         public WorkflowPolicyOverrideRepository(WorkflowDbContext context) : base(context) { }
 

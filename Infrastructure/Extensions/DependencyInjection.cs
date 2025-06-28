@@ -1,6 +1,4 @@
-﻿using Domain.primitives;
-using Infrastructure.Persistence;
-using Infrastructure.Persistence.UnitOfWork;
+﻿using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

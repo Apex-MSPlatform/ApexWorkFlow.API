@@ -1,8 +1,8 @@
 ﻿using Domain.primitives;
 
-namespace Infrastructure.Persistence.UnitOfWork
+namespace Infrastructure.Persistence.Common.UnitOfWork
 {
-    public class WorkflowUnitOfWork : IUnitOfWork
+    public class WorkflowUnitOfWork : IApexUnitOfWork
     {
         private readonly WorkflowDbContext _context;
 

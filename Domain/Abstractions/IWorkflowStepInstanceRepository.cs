@@ -4,7 +4,7 @@ using Domain.primitives;
 
 namespace Domain.Abstractions
 {
-    public interface IWorkflowStepInstanceRepository : IRepository<WorkflowStepInstance> 
+    public interface IWorkflowStepInstanceRepository : IApexRepository<WorkflowStepInstance> 
     {
         Task<List<WorkflowStepInstance>> GetByWorkflowInstanceIdAsync(Guid workflowInstanceId);
     }

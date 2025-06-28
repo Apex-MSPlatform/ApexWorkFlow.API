@@ -1,10 +1,13 @@
-﻿
+﻿using Domain.Shared.Pagination;
 
 namespace Domain.primitives
 {
-    public interface IRepository<T>
+    public interface IApexRepository<T>
     {
-        IQueryable<T> GetQueryableList();
+        public Task<PagedResult<T>> GetQueryableList(
+            QueryParameters parameters,
+            Func<IQueryable<T>, string?, IQueryable<T>>? searchFunc = null,
+            Func<IQueryable<T>, string?, bool, IQueryable<T>>? sortFunc = null);
 
         public Task<IEnumerable<T>> GetAllAsync();
 

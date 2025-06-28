@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(WorkflowDbContext))]
-    [Migration("20250621172925_InitialCreate")]
+    [Migration("20250628173538_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -239,6 +239,9 @@ namespace Infrastructure.Persistence.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("WorkflowTemplates", (string)null);
                 });

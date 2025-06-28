@@ -1,22 +1,28 @@
 ﻿using Domain.primitives;
+using Domain.Shared.Pagination;
+using Infrastructure.Extensions;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.Persistence.Repositories
+namespace Infrastructure.Persistence.Common.GenericRepository
 {
-    public class GenericRepository<T> : IRepository<T> where T : ApexEntity
+    public class ApexGenericRepository<T> : IApexRepository<T> where T : ApexEntity
     {
         protected readonly WorkflowDbContext _context;
         protected readonly DbSet<T> _set;
 
-        public GenericRepository(WorkflowDbContext context)
+        public ApexGenericRepository(WorkflowDbContext context)
         {
             _context = context;
             _set = context.Set<T>();
         }
 
-        public IQueryable<T> GetQueryableList() => _set.AsQueryable();
+        public Task<PagedResult<T>> GetQueryableList(
+            QueryParameters parameters,
+            Func<IQueryable<T>, string?, IQueryable<T>>? searchFunc = null,
+            Func<IQueryable<T>, string?, bool, IQueryable<T>>? sortFunc = null
+            ) => _set.ApexQueryAsync(parameters, searchFunc, sortFunc);
 
-        public async Task<IEnumerable<T>> GetAllAsync() =>  await _set.ToListAsync();
+        public async Task<IEnumerable<T>> GetAllAsync() => await _set.ToListAsync();
 
         public async Task<T?> GetByIdAsync(Guid id) => await _set.FirstOrDefaultAsync(e => e.Id == id);
 

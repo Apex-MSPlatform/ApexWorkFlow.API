@@ -1,10 +1,11 @@
 ﻿using Domain.Abstractions;
 using Domain.Entities;
+using Infrastructure.Persistence.Common.GenericRepository;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Persistence.Repositories
 {
-    public class WorkflowAuditLogRepository : GenericRepository<WorkflowAuditLog>, IWorkflowAuditLogRepository
+    public class WorkflowAuditLogRepository : ApexGenericRepository<WorkflowAuditLog>, IWorkflowAuditLogRepository
     {
         public WorkflowAuditLogRepository(WorkflowDbContext context) : base(context) { }
 

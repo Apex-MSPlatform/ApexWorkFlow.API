@@ -183,6 +183,12 @@ namespace Infrastructure.Persistence.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_WorkflowTemplates_Name",
+                table: "WorkflowTemplates",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_WorkflowTemplateSteps_TemplateId_StepOrder",
                 table: "WorkflowTemplateSteps",
                 columns: new[] { "TemplateId", "StepOrder" },

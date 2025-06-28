@@ -2,7 +2,7 @@
 
 namespace Domain.primitives
 {
-    public interface IUnitOfWork
+    public interface IApexUnitOfWork
     {
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }

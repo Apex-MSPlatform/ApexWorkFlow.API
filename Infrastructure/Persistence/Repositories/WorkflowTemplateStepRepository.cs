@@ -1,11 +1,11 @@
 ﻿using Domain.Abstractions;
 using Domain.Entities;
-using Infrastructure.Persistence.Repositories;
+using Infrastructure.Persistence.Common.GenericRepository;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.Persistence
+namespace Infrastructure.Persistence.Repositories
 {
-    public class WorkflowTemplateStepRepository : GenericRepository<WorkflowTemplateStep>, IWorkflowTemplateStepRepository
+    public class WorkflowTemplateStepRepository : ApexGenericRepository<WorkflowTemplateStep>, IWorkflowTemplateStepRepository
     {
         public WorkflowTemplateStepRepository(WorkflowDbContext context) : base(context) { }
 

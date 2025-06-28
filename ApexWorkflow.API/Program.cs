@@ -2,19 +2,17 @@ using Application;
 using Infrastructure.Extensions;
 using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
-
-
-
-
+using Presentation.Extensions;
+using Presentation.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
-
 
 var config = builder.Configuration;
 
 builder.Services
     .AddApplication()
-    .AddInfrastructure(config);
+    .AddInfrastructure(config)
+    .AddPresentation();
 
 
 // Add services to the container.
@@ -44,6 +42,8 @@ app.UseHttpsRedirection();
 // Serve static files from wwwroot
 app.UseDefaultFiles(); // Enables default file mapping (like index.html)
 app.UseStaticFiles();  // Serves the static files
+
+app.UseExceptionHandlerMiddleware();
 
 app.UseAuthorization();
 

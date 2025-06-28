@@ -1,10 +1,12 @@
-﻿using Domain.Abstractions;
+﻿using System.Collections.Generic;
+using Domain.Abstractions;
 using Domain.Entities;
+using Infrastructure.Persistence.Common.GenericRepository;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Persistence.Repositories
 {
-    public class WorkflowTemplateRepository : GenericRepository<WorkflowTemplate>, IWorkflowTemplateRepository
+    public class WorkflowTemplateRepository : ApexGenericRepository<WorkflowTemplate>, IWorkflowTemplateRepository
     {
         public WorkflowTemplateRepository(WorkflowDbContext context) : base(context) { }
 
@@ -21,5 +23,8 @@ namespace Infrastructure.Persistence.Repositories
                 .OrderByDescending(t => t.CreatedAt)
                 .ToListAsync();
         }
+
+        public async Task<bool> IsNameExistsAsync(string name) => 
+            await _set.AnyAsync(x => x.Name == name);
     }
 }
