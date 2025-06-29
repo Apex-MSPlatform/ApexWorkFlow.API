@@ -20,7 +20,7 @@ namespace Infrastructure.Persistence.Common.GenericRepository
             QueryParameters parameters,
             Func<IQueryable<T>, string?, IQueryable<T>>? searchFunc = null,
             Func<IQueryable<T>, string?, bool, IQueryable<T>>? sortFunc = null
-            ) => _set.ApexQueryAsync(parameters, searchFunc, sortFunc);
+            ) => _set.ApexQueryAsync(parameters, searchFunc);
 
         public async Task<IEnumerable<T>> GetAllAsync() => await _set.ToListAsync();
 

@@ -1,4 +1,5 @@
 ﻿using Application.Features.WorkflowTemplates.Create;
+using Application.Features.WorkflowTemplates.ReadAll;
 using Asp.Versioning;
 using Domain.Shared.Pagination;
 using MediatR;
@@ -17,17 +18,23 @@ namespace Presentation.Controllers
         {
             _mediator = mediator;
         }
-        /*
+        
+
         [MapToApiVersion(1)]
         [HttpGet]
-        public async Task<IActionResult> ReadAll([FromQuery] QueryParameters parameters)
+        public async Task<IActionResult> ReadAll([FromQuery] QueryParameters queryParameters)
         {
-            var result = await _mediator.Send(command);
+            var query = new ReadAllWorkflowTemplateQuery
+            {
+                QueryParameters = queryParameters
+            };
+
+            var result = await _mediator.Send(query);
 
             return result.IsSuccess
                 ? Ok(result)
                 : BadRequest(result);
-        }*/
+        }
 
         [MapToApiVersion(1)]
         [HttpPost]

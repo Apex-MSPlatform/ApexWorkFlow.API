@@ -1,5 +1,7 @@
 ﻿using Domain.Shared.Pagination;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 
 namespace Infrastructure.Extensions
@@ -27,14 +29,13 @@ namespace Infrastructure.Extensions
         public static async Task<PagedResult<T>> ApexQueryAsync<T>(
             this IQueryable<T> query,
             QueryParameters parameters,
-            Func<IQueryable<T>, string?, IQueryable<T>>? searchFunc = null,
-            Func<IQueryable<T>, string?, bool, IQueryable<T>>? sortFunc = null)
+            Func<IQueryable<T>, string?, IQueryable<T>>? searchFunc = null)
         {
             if (searchFunc != null)
                 query = searchFunc(query, parameters.SearchTerm);
 
-            if (sortFunc != null)
-                query = sortFunc(query, parameters.OrderBy, parameters.IsDescending);
+            if (! parameters.OrderBy.IsNullOrEmpty() )
+                query = Sortfunc(query, parameters.OrderBy!, parameters.IsDescending);
 
             var totalItems = await query.CountAsync();
             var items = await query
@@ -50,6 +51,18 @@ namespace Infrastructure.Extensions
                 PageSize = parameters.PageSize
             };
         }
+
+        private static IQueryable<T> Sortfunc<T>(IQueryable<T> query, string orderBy, bool isDesc)
+        {
+            if (string.IsNullOrWhiteSpace(orderBy)) return query;
+
+            orderBy = char.ToUpper(orderBy[0]) + orderBy.Substring(1);
+            return isDesc
+                ? query.OrderByDescending(e => EF.Property<object>(e!, orderBy))
+                : query.OrderBy(e => EF.Property<object>(e!, orderBy));
+        }
+
+
     }
 
 }
