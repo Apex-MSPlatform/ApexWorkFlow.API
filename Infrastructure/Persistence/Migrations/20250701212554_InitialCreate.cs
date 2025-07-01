@@ -12,6 +12,22 @@ namespace Infrastructure.Persistence.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Workflow",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ReferenceType = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DisplayName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Workflow", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "WorkflowAuditLogs",
                 columns: table => new
                 {
@@ -69,8 +85,8 @@ namespace Infrastructure.Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    WorkflowId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    ReferenceType = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     Version = table.Column<int>(type: "int", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
@@ -79,6 +95,12 @@ namespace Infrastructure.Persistence.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_WorkflowTemplates", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_WorkflowTemplates_Workflow_WorkflowId",
+                        column: x => x.WorkflowId,
+                        principalTable: "Workflow",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -189,6 +211,11 @@ namespace Infrastructure.Persistence.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_WorkflowTemplates_WorkflowId",
+                table: "WorkflowTemplates",
+                column: "WorkflowId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_WorkflowTemplateSteps_TemplateId_StepOrder",
                 table: "WorkflowTemplateSteps",
                 columns: new[] { "TemplateId", "StepOrder" },
@@ -218,6 +245,9 @@ namespace Infrastructure.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "WorkflowInstances");
+
+            migrationBuilder.DropTable(
+                name: "Workflow");
         }
     }
 }

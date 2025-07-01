@@ -19,10 +19,6 @@ namespace Infrastructure.Persistence.EntityConfigurations
             builder.HasIndex(x => x.Name)
                 .IsUnique();
 
-            builder.Property(w => w.ReferenceType)
-                .IsRequired()
-                .HasMaxLength(100);
-
             builder.Property(w => w.Description)
                 .HasMaxLength(500);
 

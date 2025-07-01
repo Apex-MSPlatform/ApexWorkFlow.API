@@ -34,7 +34,7 @@ namespace Application.Features.WorkflowTemplates.ReadAll
                 })
             };
 
-            var result = Result<ReadAllWorkflowTemplateResponse>.Success(response, "ALl workflow templates");
+            var result = Result<ReadAllWorkflowTemplateResponse>.Success(response, "All workflow templates");
 
             return result;
         }

@@ -10,10 +10,10 @@ namespace Infrastructure.Persistence.Repositories
     {
         public WorkflowTemplateRepository(WorkflowDbContext context) : base(context) { }
 
-        public async Task<WorkflowTemplate?> GetActiveTemplateByReferenceTypeAsync(string referenceType)
+        public async Task<WorkflowTemplate?> GetActiveTemplateByWorkflowIDAsync(Guid ID)
         {
             return await _context.WorkflowTemplate
-                .FirstOrDefaultAsync(t => t.ReferenceType == referenceType && t.IsActive);
+                .FirstOrDefaultAsync(t => t.WorkflowId == ID && t.IsActive);
         }
 
         public async Task<List<WorkflowTemplate>> GetAllActiveTemplatesAsync()

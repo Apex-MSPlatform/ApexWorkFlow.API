@@ -6,7 +6,7 @@ namespace Infrastructure.Persistence
 {
     public class WorkflowDbContext(DbContextOptions<WorkflowDbContext> options) : DbContext(options)
     {
-
+        public DbSet<Workflow> Workflow { get; set; }
         public DbSet<WorkflowTemplate> WorkflowTemplate { get; set; }
         public DbSet<WorkflowTemplateStep> WorkflowTemplateStep { get; set; }
         public DbSet<WorkflowInstance> WorkflowInstance { get; set; }
