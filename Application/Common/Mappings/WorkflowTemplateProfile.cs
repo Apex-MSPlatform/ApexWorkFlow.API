@@ -1,4 +1,6 @@
-﻿using Application.Features.WorkflowTemplates.Create;
+﻿using Application.Features.Workflow.Create;
+using Application.Features.Workflow.Read;
+using Application.Features.WorkflowTemplates.Create;
 using AutoMapper;
 using Domain.Entities;
 
@@ -10,6 +12,13 @@ namespace Application.Common.Mappings
         {
             CreateMap<CreateWorkflowTemplateCommand, WorkflowTemplate>();
             CreateMap<WorkflowTemplate, CreateWorkflowTemplateResponse>();
+
+            CreateMap<Workflow, ReadWorkflowResponse>();
+
+
+            CreateMap<CreateWorkflowCommand, Workflow>();
+            CreateMap<Workflow, CreateWorkflowResponse>();
+
         }
     }
 }

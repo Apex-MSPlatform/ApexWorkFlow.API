@@ -17,6 +17,7 @@ namespace Infrastructure.Persistence.Repositories
             return await _context.WorkflowTemplate.Where(entity => entity.WorkflowId == guid).ToListAsync();
         }
 
-        
+        public async Task<bool> IsWorkflowExistsAsync(string referenceType) =>
+            await _set.AnyAsync(x => x.ReferenceType == referenceType);
     }
 }
