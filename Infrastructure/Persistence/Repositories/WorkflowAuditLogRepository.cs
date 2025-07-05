@@ -9,12 +9,12 @@ namespace Infrastructure.Persistence.Repositories
     {
         public WorkflowAuditLogRepository(WorkflowDbContext context) : base(context) { }
 
-        public async Task<List<WorkflowAuditLog>> GetLogsByStepIdAsync(Guid stepId)
+        public async Task<List<WorkflowAuditLog>> GetLogsByStepIdAsync(Guid stepId, CancellationToken cancellationToken)
         {
             return await _context.WorkflowAuditLog
                 .Where(x => x.StepId == stepId)
                 .OrderByDescending(x => x.Timestamp)
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
         }
     }
 }

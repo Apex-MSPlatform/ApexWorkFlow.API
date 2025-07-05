@@ -10,7 +10,7 @@ namespace Infrastructure.Persistence.Repositories
         public WorkflowPolicyOverrideRepository(WorkflowDbContext context) : base(context) { }
 
         public async Task<List<WorkflowPolicyOverride>> GetOverridesForContextAsync(
-            string referenceType, Guid? userId, string? role, string? department, string? office)
+            string referenceType, Guid? userId, string? role, string? department, string? office,CancellationToken cancellationToken)
         {
             return await _context.WorkflowPolicyOverride
                 .Where(p => p.ReferenceType == referenceType &&
@@ -19,7 +19,7 @@ namespace Infrastructure.Persistence.Repositories
                             (p.Department == null || p.Department == department) &&
                             (p.Office == null || p.Office == office))
                 .OrderByDescending(p => p.Priority)
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
         }
     }
 }

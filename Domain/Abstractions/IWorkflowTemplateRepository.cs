@@ -6,9 +6,9 @@ namespace Domain.Abstractions
 {
     public interface IWorkflowTemplateRepository : IApexRepository<WorkflowTemplate> 
     {
-        Task<WorkflowTemplate?> GetActiveTemplateByWorkflowIDAsync(Guid ID);
-        Task<List<WorkflowTemplate>> GetAllActiveTemplatesAsync();
+        Task<WorkflowTemplate?> GetActiveTemplateByWorkflowIDAsync(Guid ID, CancellationToken cancellationToken);
+        Task<List<WorkflowTemplate>> GetAllActiveTemplatesAsync(CancellationToken cancellationToken);
 
-        Task<bool> IsNameExistsAsync(string name);
+        Task<bool> IsNameExistsAsync(string name, CancellationToken cancellationToken);
     }
 }

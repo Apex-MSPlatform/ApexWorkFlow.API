@@ -22,14 +22,14 @@ namespace Presentation.Controllers
 
         [MapToApiVersion(1)]
         [HttpGet]
-        public async Task<IActionResult> ReadAll([FromQuery] QueryParameters queryParameters)
+        public async Task<IActionResult> ReadAll([FromQuery] QueryParameters queryParameters, CancellationToken cancellationToken)
         {
             var query = new ReadAllWorkflowTemplateQuery
             {
                 QueryParameters = queryParameters
             };
 
-            var result = await _mediator.Send(query);
+            var result = await _mediator.Send(query, cancellationToken);
 
             return result.IsSuccess
                 ? Ok(result)
@@ -38,9 +38,9 @@ namespace Presentation.Controllers
 
         [MapToApiVersion(1)]
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateWorkflowTemplateCommand command)
+        public async Task<IActionResult> Create([FromBody] CreateWorkflowTemplateCommand command,CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(command);
+            var result = await _mediator.Send(command, cancellationToken);
 
             return result.IsSuccess
                 ? Ok(result)

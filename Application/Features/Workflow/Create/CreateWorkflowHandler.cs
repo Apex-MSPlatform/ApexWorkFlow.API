@@ -21,7 +21,7 @@ namespace Application.Features.Workflow.Create
 
         public async Task<Result<CreateWorkflowResponse>> Handle(CreateWorkflowCommand request, CancellationToken cancellationToken)
         {
-            var IsExist = await _repository.IsWorkflowExistsAsync(request.ReferenceType);
+            var IsExist = await _repository.IsWorkflowExistsAsync(request.ReferenceType, cancellationToken);
 
             if (IsExist)
                 throw new AlreadyExistException([$"Workflow with the following ReferenceType '{request.ReferenceType}' is already exist."]);
@@ -29,11 +29,11 @@ namespace Application.Features.Workflow.Create
 
             var workflow = _mapper.Map<Domain.Entities.Workflow>(request);
 
-            workflow = await _repository.AddAsync(workflow);
+            workflow = await _repository.AddAsync(workflow, cancellationToken);
 
             var workflowResponse = _mapper.Map<CreateWorkflowResponse>(workflow);
 
-            var result = Result<CreateWorkflowResponse>.Success(workflowResponse,"workflow has been created");
+            var result = Result<CreateWorkflowResponse>.Success(workflowResponse,"workflow has b    een created");
 
             return result;
         }

@@ -9,12 +9,12 @@ namespace Infrastructure.Persistence.Repositories
     {
         public WorkflowTemplateStepRepository(WorkflowDbContext context) : base(context) { }
 
-        public async Task<List<WorkflowTemplateStep>> GetStepsByTemplateIdAsync(Guid templateId)
+        public async Task<List<WorkflowTemplateStep>> GetStepsByTemplateIdAsync(Guid templateId,CancellationToken cancellationToken)
         {
             return await _context.WorkflowTemplateStep
                 .Where(x => x.Id == templateId)
                 .OrderBy(e => e.StepOrder)
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
         }
     }
 }

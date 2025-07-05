@@ -24,6 +24,7 @@ namespace Application.Features.WorkflowTemplates.ReadAll
             {
                 Templates = await _repository.GetQueryableList(
                 query.QueryParameters,
+                cancellationToken,
                 searchFunc: (query, searchTerm) =>
                 {
                     if (!string.IsNullOrWhiteSpace(searchTerm))

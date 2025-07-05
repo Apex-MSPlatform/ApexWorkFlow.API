@@ -9,11 +9,11 @@ namespace Infrastructure.Persistence.Repositories
     {
         public WorkflowStepApproverRepository(WorkflowDbContext context) : base(context) { }
 
-        public async Task<List<WorkflowStepApprover>> GetByStepInstanceIdAsync(Guid stepInstanceId)
+        public async Task<List<WorkflowStepApprover>> GetByStepInstanceIdAsync(Guid stepInstanceId, CancellationToken cancellationToken)
         {
             return await _context.WorkflowStepApprover
                 .Where(a => a.StepInstanceId == stepInstanceId)
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
         }
     }
 }

@@ -23,6 +23,9 @@ namespace Infrastructure.Persistence.EntityConfigurations
                .IsRequired()
                .HasMaxLength(100);
 
+            builder.Property(e => e.Description)
+                .HasMaxLength(500);
+
             builder.Property(w => w.IsActive)
                 .IsRequired();
 

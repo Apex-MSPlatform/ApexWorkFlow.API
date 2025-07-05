@@ -10,21 +10,21 @@ namespace Infrastructure.Persistence.Repositories
     {
         public WorkflowTemplateRepository(WorkflowDbContext context) : base(context) { }
 
-        public async Task<WorkflowTemplate?> GetActiveTemplateByWorkflowIDAsync(Guid ID)
+        public async Task<WorkflowTemplate?> GetActiveTemplateByWorkflowIDAsync(Guid ID, CancellationToken cancellationToken)
         {
             return await _context.WorkflowTemplate
-                .FirstOrDefaultAsync(t => t.WorkflowId == ID && t.IsActive);
+                .FirstOrDefaultAsync(t => t.WorkflowId == ID && t.IsActive, cancellationToken);
         }
 
-        public async Task<List<WorkflowTemplate>> GetAllActiveTemplatesAsync()
+        public async Task<List<WorkflowTemplate>> GetAllActiveTemplatesAsync(CancellationToken cancellationToken)
         {
             return await _context.WorkflowTemplate
                 .Where(t => t.IsActive)
                 .OrderByDescending(t => t.CreatedAt)
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
         }
 
-        public async Task<bool> IsNameExistsAsync(string name) => 
-            await _set.AnyAsync(x => x.Name == name);
+        public async Task<bool> IsNameExistsAsync(string name, CancellationToken cancellationToken) => 
+            await _set.AnyAsync(x => x.Name == name, cancellationToken);
     }
 }

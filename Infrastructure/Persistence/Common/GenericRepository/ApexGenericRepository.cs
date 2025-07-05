@@ -18,38 +18,39 @@ namespace Infrastructure.Persistence.Common.GenericRepository
 
         public Task<PagedResult<T>> GetQueryableList(
             QueryParameters parameters,
+            CancellationToken cancellationToken = default,
             Func<IQueryable<T>, string?, IQueryable<T>>? searchFunc = null,
             Func<IQueryable<T>, string?, bool, IQueryable<T>>? sortFunc = null
             ) => _set.ApexQueryAsync(parameters, searchFunc);
 
-        public async Task<IEnumerable<T>> GetAllAsync() => await _set.ToListAsync();
+        public async Task<IEnumerable<T>> GetAllAsync(CancellationToken cancellationToken = default) => await _set.ToListAsync(cancellationToken);
 
-        public async Task<T?> GetByIdAsync(Guid id) => await _set.FirstOrDefaultAsync(e => e.Id == id);
+        public async Task<T?> GetByIdAsync(Guid id, CancellationToken cancellationToken) => await _set.FirstOrDefaultAsync(e => e.Id == id, cancellationToken);
 
-        public async Task<T> AddAsync(T entity)
+        public async Task<T> AddAsync(T entity, CancellationToken cancellationToken)
         {
-            await _set.AddAsync(entity);
-            await _context.SaveChangesAsync();
+            await _set.AddAsync(entity, cancellationToken);
+            await _context.SaveChangesAsync(cancellationToken);
             return entity;
         }
 
-        public async Task<T> UpdateAsync(T entity)
+        public async Task<T> UpdateAsync(T entity, CancellationToken cancellationToken)
         {
             _set.Update(entity);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellationToken);
             return entity;
         }
 
-        public async Task<bool> DeleteAsync(Guid id)
+        public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken)
         {
-            var entity = await _set.FirstOrDefaultAsync(e => e.Id == id);
+            var entity = await _set.FirstOrDefaultAsync(e => e.Id == id, cancellationToken);
             if (entity == null) return false;
             _set.Remove(entity);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellationToken);
             return true;
         }
 
-        public async Task<bool> IsExistsAsync(Guid id) =>
-            await _set.AnyAsync(x => x.Id == id);
+        public async Task<bool> IsExistsAsync(Guid id, CancellationToken cancellationToken) =>
+            await _set.AnyAsync(x => x.Id == id, cancellationToken);
     }
 }

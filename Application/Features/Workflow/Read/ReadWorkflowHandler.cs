@@ -20,7 +20,7 @@ namespace Application.Features.Workflow.Read
 
         public async Task<Result<ReadWorkflowResponse>> Handle(ReadWorkflowQurey request, CancellationToken cancellationToken)
         {
-            var workflow = await _repository.GetByIdAsync(request.Id);
+            var workflow = await _repository.GetByIdAsync(request.Id, cancellationToken);
 
             if (workflow == null)
             {

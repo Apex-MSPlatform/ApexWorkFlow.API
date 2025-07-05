@@ -6,6 +6,6 @@ namespace Domain.Abstractions
 {
     public interface IWorkflowStepApproverRepository : IApexRepository<WorkflowStepApprover> 
     {
-        Task<List<WorkflowStepApprover>> GetByStepInstanceIdAsync(Guid stepInstanceId);
+        Task<List<WorkflowStepApprover>> GetByStepInstanceIdAsync(Guid stepInstanceId, CancellationToken cancellationToken);
     }
 }

@@ -20,14 +20,14 @@ namespace Presentation.Controllers
 
         [MapToApiVersion(1)]
         [HttpGet("{WorkflowId}")]
-        public async Task<IActionResult> Read(Guid WorkflowId)
+        public async Task<IActionResult> Read(Guid WorkflowId,CancellationToken cancellationToken)
         {
             var query = new ReadWorkflowQurey
             {
                 Id = WorkflowId
             };
 
-            var result = await _mediator.Send(query);
+            var result = await _mediator.Send(query, cancellationToken);
 
             return result.IsSuccess
                 ? Ok(result)
@@ -36,9 +36,9 @@ namespace Presentation.Controllers
 
         [MapToApiVersion(1)]
         [HttpPost()]
-        public async Task<IActionResult> Create(CreateWorkflowCommand command)
+        public async Task<IActionResult> Create(CreateWorkflowCommand command, CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(command);
+            var result = await _mediator.Send(command, cancellationToken);
 
             return result.IsSuccess
                 ? Ok(result)

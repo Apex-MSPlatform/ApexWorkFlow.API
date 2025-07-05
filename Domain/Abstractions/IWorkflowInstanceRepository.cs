@@ -6,6 +6,6 @@ namespace Domain.Abstractions
 {
     public interface IWorkflowInstanceRepository : IApexRepository<WorkflowInstance> 
     {
-        Task<WorkflowInstance?> GetByReferenceIdAsync(string referenceType, string referenceId);
+        Task<WorkflowInstance?> GetByReferenceIdAsync(string referenceType, string referenceId, CancellationToken cancellationToken);
     }
 }

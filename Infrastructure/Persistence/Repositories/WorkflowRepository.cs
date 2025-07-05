@@ -12,12 +12,12 @@ namespace Infrastructure.Persistence.Repositories
 
         }
 
-        public async Task<ICollection<WorkflowTemplate>> GetWorkflowTemplates(Guid guid)
+        public async Task<ICollection<WorkflowTemplate>> GetWorkflowTemplates(Guid guid, CancellationToken cancellationToken)
         {
-            return await _context.WorkflowTemplate.Where(entity => entity.WorkflowId == guid).ToListAsync();
+            return await _context.WorkflowTemplate.Where(entity => entity.WorkflowId == guid).ToListAsync(cancellationToken);
         }
 
-        public async Task<bool> IsWorkflowExistsAsync(string referenceType) =>
-            await _set.AnyAsync(x => x.ReferenceType == referenceType);
+        public async Task<bool> IsWorkflowExistsAsync(string referenceType,CancellationToken cancellationToken) =>
+            await _set.AnyAsync(x => x.ReferenceType == referenceType, cancellationToken);
     }
 }

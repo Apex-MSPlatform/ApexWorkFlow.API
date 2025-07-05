@@ -31,7 +31,7 @@ namespace Application.Features.WorkflowTemplates.Create
             }
 
 
-            var existing = await _repository.IsNameExistsAsync(request.Name);
+            var existing = await _repository.IsNameExistsAsync(request.Name, cancellationToken);
             if (existing)
             {
                 List<string> list = ["A workflow template with the same name already exists."];
@@ -41,7 +41,7 @@ namespace Application.Features.WorkflowTemplates.Create
 
             var template = _mapper.Map<WorkflowTemplate>(request);
 
-            await _repository.AddAsync(template);
+            await _repository.AddAsync(template, cancellationToken);
 
             var response = _mapper.Map<CreateWorkflowTemplateResponse>(template);
 
