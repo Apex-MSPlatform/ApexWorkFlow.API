@@ -1,6 +1,6 @@
 ﻿
+using Apex.Core.primitives;
 using Domain.Entities;
-using Domain.primitives;
 
 namespace Domain.Abstractions
 {

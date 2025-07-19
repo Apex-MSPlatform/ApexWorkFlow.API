@@ -1,7 +1,7 @@
 ﻿using Domain.Abstractions;
 using Domain.Entities;
-using Infrastructure.Persistence.Common.GenericRepository;
 using Microsoft.EntityFrameworkCore;
+using Apex.Core.Common.GenericRepository;
 
 namespace Infrastructure.Persistence.Repositories
 {
@@ -11,7 +11,7 @@ namespace Infrastructure.Persistence.Repositories
 
         public async Task<List<WorkflowTemplateStep>> GetStepsByTemplateIdAsync(Guid templateId,CancellationToken cancellationToken)
         {
-            return await _context.WorkflowTemplateStep
+            return await _set
                 .Where(x => x.Id == templateId)
                 .OrderBy(e => e.StepOrder)
                 .ToListAsync(cancellationToken);

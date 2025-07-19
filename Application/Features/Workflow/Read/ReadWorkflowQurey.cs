@@ -1,4 +1,4 @@
-﻿using Application.Abstractions.Messaging;
+﻿using Apex.Core.Abstractions.Messaging;
 
 namespace Application.Features.Workflow.Read
 {

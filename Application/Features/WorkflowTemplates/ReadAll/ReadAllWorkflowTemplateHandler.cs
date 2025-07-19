@@ -1,8 +1,8 @@
-﻿using Application.Abstractions.Messaging;
+﻿using Apex.Core.Abstractions.Messaging;
+using Apex.Core.Common;
 using AutoMapper;
 using Domain.Abstractions;
-using Domain.Entities;
-using Domain.Shared;
+
 using FluentValidation;
 
 namespace Application.Features.WorkflowTemplates.ReadAll

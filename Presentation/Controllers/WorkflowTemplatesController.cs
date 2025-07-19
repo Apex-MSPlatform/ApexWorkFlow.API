@@ -1,7 +1,7 @@
-﻿using Application.Features.WorkflowTemplates.Create;
+﻿using Apex.Core.Common.Pagination;
+using Application.Features.WorkflowTemplates.Create;
 using Application.Features.WorkflowTemplates.ReadAll;
 using Asp.Versioning;
-using Domain.Shared.Pagination;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

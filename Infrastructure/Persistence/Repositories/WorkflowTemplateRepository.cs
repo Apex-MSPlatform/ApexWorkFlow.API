@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿
 using Domain.Abstractions;
 using Domain.Entities;
-using Infrastructure.Persistence.Common.GenericRepository;
 using Microsoft.EntityFrameworkCore;
+using Apex.Core.Common.GenericRepository;
 
 namespace Infrastructure.Persistence.Repositories
 {
@@ -12,13 +12,13 @@ namespace Infrastructure.Persistence.Repositories
 
         public async Task<WorkflowTemplate?> GetActiveTemplateByWorkflowIDAsync(Guid ID, CancellationToken cancellationToken)
         {
-            return await _context.WorkflowTemplate
+            return await _set
                 .FirstOrDefaultAsync(t => t.WorkflowId == ID && t.IsActive, cancellationToken);
         }
 
         public async Task<List<WorkflowTemplate>> GetAllActiveTemplatesAsync(CancellationToken cancellationToken)
         {
-            return await _context.WorkflowTemplate
+            return await _set
                 .Where(t => t.IsActive)
                 .OrderByDescending(t => t.CreatedAt)
                 .ToListAsync(cancellationToken);

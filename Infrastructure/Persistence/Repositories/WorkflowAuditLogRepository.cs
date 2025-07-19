@@ -1,6 +1,7 @@
-﻿using Domain.Abstractions;
+﻿using Apex.Core.Common.GenericRepository;
+using Domain.Abstractions;
 using Domain.Entities;
-using Infrastructure.Persistence.Common.GenericRepository;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Persistence.Repositories
@@ -11,7 +12,7 @@ namespace Infrastructure.Persistence.Repositories
 
         public async Task<List<WorkflowAuditLog>> GetLogsByStepIdAsync(Guid stepId, CancellationToken cancellationToken)
         {
-            return await _context.WorkflowAuditLog
+            return await _set
                 .Where(x => x.StepId == stepId)
                 .OrderByDescending(x => x.Timestamp)
                 .ToListAsync(cancellationToken);

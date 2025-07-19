@@ -1,6 +1,6 @@
 ﻿
 
-using Domain.primitives;
+using Apex.Core.primitives;
 
 namespace Domain.Entities
 {

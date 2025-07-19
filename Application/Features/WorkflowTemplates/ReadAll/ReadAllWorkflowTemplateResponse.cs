@@ -1,5 +1,5 @@
-﻿using Domain.Entities;
-using Domain.Shared.Pagination;
+﻿using Apex.Core.Common.Pagination;
+using Domain.Entities;
 
 namespace Application.Features.WorkflowTemplates.ReadAll
 {

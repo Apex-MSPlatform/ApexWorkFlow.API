@@ -6,10 +6,6 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Apex.Core" Version="2.0.0" />
-  </ItemGroup>
-
  
 
 

@@ -1,5 +1,4 @@
-﻿using Application.Abstractions.Messaging;
-using Domain.Shared;
+﻿using Apex.Core.Abstractions.Messaging;
 
 namespace Application.Features.WorkflowTemplates.Create
 {

@@ -1,5 +1,6 @@
-﻿using Application.Abstractions.Messaging;
-using Domain.Shared.Pagination;
+﻿using Apex.Core.Abstractions.Messaging;
+using Apex.Core.Common.Pagination;
+
 
 namespace Application.Features.WorkflowTemplates.ReadAll
 {
